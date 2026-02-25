@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Configuration noSecrets="true" sourceCodeOnly="true" staticAnalysisOnly="true">
+  <Targets>
+    <Target path="">
+      <Exclude>ASOC_AltoroJ-master\WebContent\admin\feedbackReview.jsp</Exclude>
+      <Exclude>ASOC_AltoroJ-master\WebContent\feedbacksuccess.jsp</Exclude>
+    </Target>
+  </Targets>
+</Configuration>

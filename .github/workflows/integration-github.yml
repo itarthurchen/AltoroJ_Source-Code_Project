@@ -8,6 +8,14 @@ jobs:
   run-scripts:
     runs-on: self-hosted 
 
+    # 在 Job 層級定義環境變數，這樣下方所有步驟都能讀到
+    env:
+      APPSCAN_KEY: ${{ secrets.APPSCAN_KEY }}
+      APPSCAN_SECRET: ${{ secrets.APPSCAN_SECRET }}
+      serviceUrl: "appscan360-server.appscan360-server.appscan.il" # 這裡不加 https:// 因為腳本裡有寫
+      as360AppName: ${{ github.event.repository.name }}
+      #assetGroupId: "你的AssetGroupID" # 務必從 AppScan 360 取得並存入 Secret
+      scanLatestCommitFiles: 'no' # 完整掃描
     steps:
       # 第一步：把 GitHub 上的程式碼「拉」進 Runner 的工作目錄
       - name: Checkout Code
@@ -15,11 +23,11 @@ jobs:
 
       # 第二步：賦予執行權限，否則會報 Permission Denied
       - name: Set Permissions
-        run: chmod +x ./scripts/create_config.sh
+        run: chmod +x ./scripts/*.sh
 
       # 第三步：正式執行
-      - name: Run Config Script
-        env:
-          # 在這裡傳入腳本需要的變數
-          scanLatestCommitFiles: 'no'
+      - name: Run create-config Script
         run: ./scripts/create_config.sh
+
+      - name: Run create_app Script
+        run: ./scripts/create_app.sh

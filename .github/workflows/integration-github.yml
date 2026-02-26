@@ -1,0 +1,25 @@
+name: Trigger AppScan Scripts
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  run-scripts:
+    runs-on: self-hosted 
+
+    steps:
+      # 第一步：把 GitHub 上的程式碼「拉」進 Runner 的工作目錄
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 第二步：賦予執行權限，否則會報 Permission Denied
+      - name: Set Permissions
+        run: chmod +x ./scripts/create_config.sh
+
+      # 第三步：正式執行
+      - name: Run Config Script
+        env:
+          # 在這裡傳入腳本需要的變數
+          scanLatestCommitFiles: 'yes'
+        run: ./scripts/create_config.sh

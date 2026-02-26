@@ -21,5 +21,5 @@ jobs:
       - name: Run Config Script
         env:
           # 在這裡傳入腳本需要的變數
-          scanLatestCommitFiles: 'yes'
+          scanLatestCommitFiles: 'no'
         run: ./scripts/create_config.sh
